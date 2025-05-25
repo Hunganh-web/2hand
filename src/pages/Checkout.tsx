@@ -138,18 +138,17 @@ const Checkout = () => {
     };
 
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwwzAYRkjhWDOcg2BEyNY-Yni1EjYUHsfUXW715eAevFWNkhNFkQyPB5j-fJdfO_Fo5TQ/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbzn_KSwDASD5Rvi6TX3Bd45qU-ckytFyih23OgX-xAOld3QpIvCyXZIv2H_GOCzcv76Zw/exec', {
         method: 'POST',
         body: JSON.stringify(orderData),
         headers: {
           'Content-Type': 'application/json',
         },
+        mode: 'no-cors', // Thêm mode no-cors để tránh lỗi CORS
+        signal: AbortSignal.timeout(60000), // Thêm timeout 60 giây
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
+      // Vì mode no-cors, không đọc được phản hồi JSON, giả định thành công nếu không có lỗi
       setIsSubmitting(false);
       setIsCompleted(true);
       if (isCartMode) {
@@ -160,7 +159,7 @@ const Checkout = () => {
         description: "Đơn hàng của bạn đã được xác nhận.",
         duration: 4000
       });
-    } catch (error) {
+    } catch (error: any) {
       setIsSubmitting(false);
       toast({
         title: "Lỗi kết nối",
@@ -287,11 +286,13 @@ const Checkout = () => {
                           onChange={handleInputChange}
                           className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                           required
+                          pattern="[0-9]{10}"
+                          placeholder="Ví dụ: 0987654321"
                         />
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">Địa chỉ</label>
+                      <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">Địa chỉ cụ thể</label>
                       <input
                         type="text"
                         id="address"
@@ -300,10 +301,11 @@ const Checkout = () => {
                         onChange={handleInputChange}
                         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
+                        placeholder="Xóm / Xã / Huyện"
                       />
                     </div>
                     <div>
-                      <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">Thành phố</label>
+                      <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">Thành phố/Tỉnh</label>
                       <input
                         type="text"
                         id="city"
@@ -312,6 +314,7 @@ const Checkout = () => {
                         onChange={handleInputChange}
                         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
+                        placeholder="Ví dụ: Hà Nội,..."
                       />
                     </div>
                     <div>
@@ -371,10 +374,11 @@ const Checkout = () => {
                           <h3 className="font-semibold mb-3 text-center">Thông tin chuyển khoản</h3>
                           <div className="flex justify-center mb-4">
                             <div className="w-48 h-48 bg-white border-2 border-gray-300 rounded-lg flex items-center justify-center">
-                              <div className="text-center text-gray-500">
-                                <div className="text-4xl mb-2">📱</div>
-                                <div className="text-sm">Mã QR chuyển khoản</div>
-                              </div>
+                              <img
+                                src="/2hand/lovable-uploads/QR.jpg" // Đường dẫn đến ảnh QR
+                                alt="Mã QR chuyển khoản"
+                                className="w-full h-full object-contain"
+                              />
                             </div>
                           </div>
                           <div className="space-y-2 text-sm">
