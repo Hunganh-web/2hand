@@ -19,5 +19,5 @@ export default defineConfig(({ command }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: '/2hand/', // Tên repository thực tế
+  base: process.env.VITE_BASE_URL || '/2hand/', // Tên repository thực tế
 }));

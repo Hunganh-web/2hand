@@ -388,7 +388,7 @@ const Checkout = () => {
                             </div>
                             <div className="flex justify-between">
                               <span className="font-medium">Số tài khoản:</span>
-                              <span>00000000000</span>
+                              <span>837 999 999 999 99</span>
                             </div>
                             <div className="flex justify-between">
                               <span className="font-medium">Chủ tài khoản:</span>

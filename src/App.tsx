@@ -47,7 +47,7 @@ const App = () => (
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/cart" element={<Cart />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<NotFound />} />
         </Routes>
       </HashRouter>
     </TooltipProvider>
