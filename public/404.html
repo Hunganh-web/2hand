@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>2HandCongNghe37 - Redirecting...</title>
+  <script>
+    // Redirect all routes to index.html for React Router to handle
+    // Extract the path and search params
+    const path = window.location.pathname.replace('/2hand', '');
+    const search = window.location.search;
+    const hash = window.location.hash;
+    
+    // Store the original path in sessionStorage for React Router
+    if (path && path !== '/') {
+      sessionStorage.setItem('redirectPath', path + search + hash);
+    }
+    
+    // Redirect to base URL
+    window.location.replace('/2hand/');
+  </script>
+</head>
+<body>
+  <p>Đang chuyển hướng về trang chủ...</p>
+</body>
+</html>
